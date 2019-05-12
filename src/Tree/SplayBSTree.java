@@ -133,7 +133,7 @@ public class SplayBSTree implements Tree {
         }
     }
 
-    private TreeNode splay(TreeNode h, String s) {
+    /*private TreeNode splay(TreeNode h, String s) {
         if (h == null) return null;
 
         int cmp1 = s.compareTo(h.getS());
@@ -176,7 +176,7 @@ public class SplayBSTree implements Tree {
         else{
             return h;
         }
-    }
+    }*/
 
     @Override
     public void insert(String s){
