@@ -239,7 +239,6 @@ public class SplayBSTree implements Tree {
     public void delete(String s) {
         if(!search(s)) System.out.println("Such string does not exist");
         else {
-            delete(searchNode(root, s));
         /*if (root == null) return; // empty tree
 
         root = splay(root, s);
@@ -256,7 +255,7 @@ public class SplayBSTree implements Tree {
                 root.setRight(x);
             }
         }*/
-            TreeNode nodeToRemove = searchNode(root, s);
+            TreeNode nodeToRemove = delete(searchNode(root, s));
             if (nodeToRemove != null && nodeToRemove.getParent() != null) {
                 TreeNode nodeParent = nodeToRemove.getParent();
                 // Splay the parent node to the root position
@@ -272,16 +271,17 @@ public class SplayBSTree implements Tree {
         return x;
     }
 
-    private void transplant(TreeNode u, TreeNode v){
+    private TreeNode transplant(TreeNode u, TreeNode v){
         if (u.getParent() == null) root = v;
         else if (u.equals(u.getParent().getLeft())) u.getParent().setLeft(v);
         else u.getParent().setRight(v);
         if (v != null) v.setParent(u.getParent());
+        return v;
     }
 
-    private void delete(TreeNode z){
-        if(z.getLeft() == null) transplant(z, z.getRight());
-        else if (z.getRight() == null) transplant(z, z.getLeft());
+    private TreeNode delete(TreeNode z){
+        if(z.getLeft() == null) return transplant(z, z.getRight());
+        else if (z.getRight() == null) return transplant(z, z.getLeft());
         else{
             TreeNode y = treeMinimum(z.getRight());
             if(!y.getParent().equals(z)){
@@ -292,6 +292,7 @@ public class SplayBSTree implements Tree {
             transplant(z,y);
             y.setLeft(z.getLeft());
             y.getLeft().setParent(y);
+            return y;
         }
     }
 
