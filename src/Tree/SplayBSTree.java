@@ -216,19 +216,19 @@ public class SplayBSTree implements Tree {
         TreeNode x = root;
         while (x != null){
             y = x;
-            if (z.getS().compareToIgnoreCase(x.getS()) == 0 && x.isSwap()) {
+            /*if (z.getS().compareToIgnoreCase(x.getS()) == 0 && x.isSwap()) {
                 x.swap();
                 x = x.getLeft();
-            }
-            else if (z.getS().compareToIgnoreCase(x.getS()) < 0) x = x.getLeft();
+            }*/
+            if (z.getS().compareToIgnoreCase(x.getS()) < 0) x = x.getLeft();
             else x = x.getRight();
         }
         z.setParent(y);
         if (y == null) this.root = z;
-        else if (z.getS().compareToIgnoreCase(y.getS())==0 && y.isSwap()){
+        /*else if (z.getS().compareToIgnoreCase(y.getS())==0 && y.isSwap()){
             y.swap();
             y.setLeft(z);
-        }
+        }*/
         else if (z.getS().compareToIgnoreCase(y.getS())<0) y.setLeft(z);
         else y.setRight(z);
     }
