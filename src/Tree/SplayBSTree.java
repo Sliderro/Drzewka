@@ -297,15 +297,22 @@ public class SplayBSTree implements Tree {
 
     @Override
     public boolean search(String s) {
-        return search(root, s);
+        TreeNode node = searchNode(root,s);
+        if (node != null) {
+            while (node.getParent() != null) {
+                this.splay(node);
+            }
+            return true;
+        }
+        return false;
     }
 
-    private boolean search(TreeNode node, String s){
+    /*private boolean search(TreeNode node, String s){
         if(node == null) return false;
         if(s.compareToIgnoreCase(node.getS()) == 0) return true;
         if(s.compareToIgnoreCase(node.getS()) < 0) return search(node.getLeft(),s);
         else return search(node.getRight(),s);
-    }
+    }*/
 
     private TreeNode searchNode(TreeNode node, String s){
         if(node == null || s.compareToIgnoreCase(node.getS()) == 0) return node;
