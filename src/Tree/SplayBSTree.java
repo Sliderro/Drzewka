@@ -1,6 +1,6 @@
 package Tree;
 
-import java.io.File;
+import java.io.*;
 
 public class SplayBSTree implements Tree {
     private StringChecker sc = new StringChecker();
@@ -322,7 +322,19 @@ public class SplayBSTree implements Tree {
 
     @Override
     public void load(File f) {
-
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while((line = br.readLine())!=null){
+                String[] split = line.split(" ");
+                for(String s: split) insert(s);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found...");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
