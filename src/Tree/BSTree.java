@@ -2,22 +2,25 @@ package Tree;
 
 import java.io.File;
 
-public class BSTTree implements Tree{
+public class BSTree implements Tree{
     private TreeNode root = null;
     private StringChecker sc = new StringChecker();
 
     @Override
-    public void insert(String s) {
-        if(sc.isCharValid(s.charAt(0))) insert(s.substring(1));
-        if(sc.isCharValid(s.charAt(s.length()-1))) insert(s.substring(0,s.length()-1));
+    public void insert(String s){
+        s = sc.fixString(s);
+        TreeNode z = new TreeNode(s);
+        insert(z);
+    }
+
+    private void insert(TreeNode z) {
         TreeNode y = null;
         TreeNode x = root;
-        TreeNode z = new TreeNode(s);
-        while (x!=null){
+        while (x != null){
             y = x;
             if (z.getS().compareToIgnoreCase(x.getS()) == 0 && x.isSwap()) {
-                x = x.getLeft();
                 x.swap();
+                x = x.getLeft();
             }
             else if (z.getS().compareToIgnoreCase(x.getS()) < 0) x = x.getLeft();
             else x = x.getRight();
@@ -25,8 +28,8 @@ public class BSTTree implements Tree{
         z.setParent(y);
         if (y == null) this.root = z;
         else if (z.getS().compareToIgnoreCase(y.getS())==0 && y.isSwap()){
-            y = y.getLeft();
             y.swap();
+            y.setLeft(z);
         }
         else if (z.getS().compareToIgnoreCase(y.getS())<0) y.setLeft(z);
         else y.setRight(z);
@@ -47,7 +50,7 @@ public class BSTTree implements Tree{
     @Override
     public void delete(String s) {
         if(!search(s)) System.out.println("Such string does not exist");
-        delete(searchNode(root, s));
+        else delete(searchNode(root, s));
     }
 
     private void delete(TreeNode z){
@@ -97,8 +100,10 @@ public class BSTTree implements Tree{
     private void inorder(TreeNode node){
         if(node != null){
             inorder(node.getLeft());
-            System.out.println(node.getS() + ", ");
+            System.out.print(node.getS() + ", ");
             inorder(node.getRight());
+            if(node.equals(root)) System.out.println();
         }
     }
+
 }

@@ -1,20 +1,22 @@
-import Tree.BSTTree;
-import Tree.StringChecker;
+import Tree.*;
 
 public class Main {
     public static void main(String[] args){
-        boolean a;
-        boolean b;
-        boolean c;
-        for (int i = 0; i < 2; i++){
-            for (int j = 0; j < 2; j++){
-                for (int k = 0; k < 2; k++){
-                    a = i == 1;
-                    b = j == 1;
-                    c = k == 1;
-                    System.out.println((a||b&&c) + " " + (a||(b&&c)));
-                }
-            }
-        }
+        Tree bstTree = new RBTree();
+        bstTree.insert("Abc");
+        bstTree.insert("Bdw");
+        bstTree.insert("adg");
+        bstTree.insert("adg");
+        bstTree.insert("adg");
+        bstTree.insert("tre");
+        bstTree.insert("sadkm");
+        bstTree.insert("aaksl");
+        bstTree.insert("aaa");
+        bstTree.inorder();
+        bstTree.delete("jgl");
+        bstTree.delete("adg");
+        System.out.println(bstTree.search("aaa"));
+        System.out.println(bstTree.search("abc"));
+        bstTree.inorder();
     }
 }

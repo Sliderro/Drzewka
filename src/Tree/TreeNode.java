@@ -5,6 +5,7 @@ public class TreeNode {
     private TreeNode parent = null;
     private TreeNode left = null;
     private TreeNode right = null;
+    private Color color;
     private boolean swap = true; // swaps when exactly same value is inserted again
 
     public TreeNode(String s){
@@ -45,5 +46,13 @@ public class TreeNode {
 
     public void swap() {
         this.swap = !this.swap;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }
