@@ -5,6 +5,7 @@ import java.io.*;
 public class SplayBSTree implements Tree {
     private StringChecker sc = new StringChecker();
     private TreeNode root = null;
+    private boolean wasNull = false;
 
     private TreeNode rotateRight(TreeNode h) {
         TreeNode x = h.getLeft();
@@ -300,10 +301,12 @@ public class SplayBSTree implements Tree {
     public boolean search(String s) {
         TreeNode node = searchNode(root,s);
         if (node != null) {
+            boolean toReturn = !wasNull;
+            wasNull = false;
             while (node.getParent() != null) {
                 this.splay(node);
             }
-            return true;
+            return toReturn;
         }
         return false;
     }
@@ -316,9 +319,21 @@ public class SplayBSTree implements Tree {
     }*/
 
     private TreeNode searchNode(TreeNode node, String s){
-        if(node == null || s.compareToIgnoreCase(node.getS()) == 0) return node;
-        if(s.compareToIgnoreCase(node.getS()) < 0) return searchNode(node.getLeft(),s);
-        else return searchNode(node.getRight(),s);
+        if(s.compareToIgnoreCase(node.getS()) == 0) return node;
+        if(s.compareToIgnoreCase(node.getS()) < 0){
+            if (node.getLeft() == null){
+                wasNull = true;
+                return node;
+            }
+            return searchNode(node.getLeft(),s);
+        }
+        else{
+            if (node.getRight() == null){
+                wasNull = true;
+                return node;
+            }
+            return searchNode(node.getRight(),s);
+        }
     }
 
     @Override

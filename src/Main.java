@@ -14,10 +14,20 @@ public class Main {
         bstTree.insert("aaksl");
         bstTree.insert("aaa");
         bstTree.inorder();
-        //bstTree.delete("jgl");
+        bstTree.delete("Abc");
+        bstTree.delete("Bdw");
         bstTree.delete("adg");
-        //System.out.println(bstTree.search("aaa"));
-        //System.out.println(bstTree.search("abc"));
+        bstTree.delete("adg");
+        bstTree.delete("adg");
+        bstTree.delete("adg");
+        bstTree.delete("tre");
+        bstTree.delete("sadkm");
+        bstTree.delete("aaksl");
+        bstTree.delete("rioeri");
+        //bstTree.delete("jgl");
+
+        System.out.println(bstTree.search("aaa"));
+        System.out.println(bstTree.search("abc"));
         bstTree.inorder();
     }
 }
