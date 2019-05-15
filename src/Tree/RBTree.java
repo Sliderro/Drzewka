@@ -1,6 +1,7 @@
 package Tree;
 
 import java.io.*;
+import java.util.Stack;
 
 public class RBTree implements Tree{
     private TreeNode guard = new TreeNode(null);
@@ -34,6 +35,7 @@ public class RBTree implements Tree{
     @Override
     public void insert(String s){
         s = sc.fixString(s);
+        if(s.length()==0) return;
         TreeNode z = new TreeNode(s);
         insert(z);
     }
@@ -217,32 +219,44 @@ public class RBTree implements Tree{
 
     @Override
     public void load(File f) {
+        int counter = 0;
         try {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while((line = br.readLine())!=null){
                 String[] split = line.split(" ");
-                for(String s: split) insert(s);
+                for(String s: split) {
+                    System.out.println(counter++);
+                    insert(s);
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found...");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
     public void inorder() {
-        inorder(root);
-    }
+        if (root == guard) return;
 
-    private void inorder(TreeNode node){
-        if (node != guard){
-            inorder(node.getLeft());
-            System.out.print(node.getS() + ", ");
-            inorder(node.getRight());
-            if (node.equals(root)) System.out.println();
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        TreeNode curr = root;
+
+        while(curr != guard || s.size()>0){
+            while(curr != guard){
+                s.push(curr);
+                curr = curr.getLeft();
+            }
+
+            curr = s.pop();
+
+            System.out.print(curr.getS() + " ");
+
+            curr = curr.getRight();
         }
     }
 }

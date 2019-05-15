@@ -1,6 +1,7 @@
 package Tree;
 
 import java.io.*;
+import java.util.Stack;
 
 public class SplayBSTree implements Tree {
     private StringChecker sc = new StringChecker();
@@ -181,6 +182,7 @@ public class SplayBSTree implements Tree {
 
     @Override
     public void insert(String s){
+        if(s.length()==0) return;
         s = sc.fixString(s);
         TreeNode z = new TreeNode(s);
         insert(z);
@@ -355,15 +357,23 @@ public class SplayBSTree implements Tree {
 
     @Override
     public void inorder() {
-        inorder(root);
-    }
+        if (root == null) return;
 
-    private void inorder(TreeNode node){
-        if(node != null){
-            inorder(node.getLeft());
-            System.out.print(node.getS() + ", ");
-            inorder(node.getRight());
-            if(node.equals(root)) System.out.println();
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        TreeNode curr = root;
+
+        while(curr != null || s.size()>0){
+            while(curr != null){
+                s.push(curr);
+                curr = curr.getLeft();
+            }
+
+            curr = s.pop();
+
+            System.out.print(curr.getS() + " ");
+
+            curr = curr.getRight();
         }
     }
+
 }

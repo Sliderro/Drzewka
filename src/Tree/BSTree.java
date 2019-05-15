@@ -1,6 +1,7 @@
 package Tree;
 
 import java.io.*;
+import java.util.Stack;
 
 public class BSTree implements Tree{
     private TreeNode root = null;
@@ -8,6 +9,7 @@ public class BSTree implements Tree{
 
     @Override
     public void insert(String s){
+        if(s.length()==0) return;
         s = sc.fixString(s);
         TreeNode z = new TreeNode(s);
         insert(z);
@@ -89,13 +91,17 @@ public class BSTree implements Tree{
 
     @Override
     public void load(File f) {
+        int counter = 0;
         try {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while((line = br.readLine())!=null){
                 String[] split = line.split(" ");
-                for(String s: split) insert(s);
+                for(String s: split) {
+                    System.out.println(counter++);
+                    insert(s);
+                }
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found...");
@@ -106,15 +112,22 @@ public class BSTree implements Tree{
 
     @Override
     public void inorder() {
-        inorder(root);
-    }
+        if (root == null) return;
 
-    private void inorder(TreeNode node){
-        if(node != null){
-            inorder(node.getLeft());
-            System.out.print(node.getS() + ", ");
-            inorder(node.getRight());
-            if(node.equals(root)) System.out.println();
+        Stack<TreeNode> s = new Stack<TreeNode>();
+        TreeNode curr = root;
+
+        while(curr != null || s.size()>0){
+            while(curr != null){
+                s.push(curr);
+                curr = curr.getLeft();
+            }
+
+            curr = s.pop();
+
+            System.out.print(curr.getS() + " ");
+
+            curr = curr.getRight();
         }
     }
 

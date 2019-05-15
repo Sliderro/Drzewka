@@ -3,6 +3,7 @@ package Tree;
 public class StringChecker {
 
     public String fixString(String s){
+        if(s.length()==0) return s;
         if(!isCharValid(s.charAt(0))) return fixString(s.substring(1));
         if(!isCharValid(s.charAt(s.length()-1))) return fixString(s.substring(0,s.length()-1));
         return s;
